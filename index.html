@@ -1,117 +1,715 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Prasanna Gosavi Portfolio</title>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prasanna Gosavi | AI & ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Space+Mono&display=swap" rel="stylesheet"/>
 <style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0a0a0f;
+    --surface:#12121a;
+    --card:#1a1a26;
+    --amber:#F5A623;
+    --amber-light:#FFD07A;
+    --amber-dim:#b8791a;
+    --purple:#7B5EA7;
+    --purple-light:#a480d4;
+    --white:#F0EDE8;
+    --muted:#8a8a9a;
+    --border:#2a2a3a;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+  }
 
-body{
-margin:0;
-font-family:Arial;
-background:black;
-color:white;
-text-align:center;
-}
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    padding:18px 48px;
+    display:flex;align-items:center;justify-content:space-between;
+    background:rgba(10,10,15,0.85);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo{
+    font-family:'Orbitron',sans-serif;
+    font-size:1.1rem;font-weight:700;
+    color:var(--amber);
+    letter-spacing:0.12em;
+    text-decoration:none;
+  }
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{
+    color:var(--muted);font-size:0.85rem;text-decoration:none;
+    letter-spacing:0.08em;text-transform:uppercase;
+    transition:color 0.2s;
+  }
+  .nav-links a:hover{color:var(--amber);}
 
-nav{
-background:#111;
-padding:20px;
-font-size:22px;
-color:#00ffff;
-}
+  /* HERO */
+  #hero{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+    padding:0 24px;
+  }
+  #canvas-bg{
+    position:absolute;inset:0;width:100%;height:100%;
+    z-index:0;opacity:0.55;
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:24px;
+  }
+  .welcome-tag{
+    font-family:'Space Mono',monospace;
+    font-size:0.8rem;letter-spacing:0.2em;
+    color:var(--purple-light);
+    text-transform:uppercase;
+    border:1px solid var(--purple);
+    padding:6px 20px;border-radius:100px;
+    animation:fadeInDown 0.8s ease forwards;
+  }
+  .hero-avatar-wrap{
+    position:relative;width:160px;height:160px;
+    animation:fadeInDown 0.9s ease forwards;
+  }
+  .hero-avatar-ring{
+    position:absolute;inset:-6px;
+    border-radius:50%;
+    background:conic-gradient(var(--amber),var(--purple),var(--amber));
+    animation:spin 4s linear infinite;
+    z-index:0;
+  }
+  .hero-avatar{
+    position:relative;z-index:1;
+    width:160px;height:160px;border-radius:50%;
+    object-fit:cover;
+    border:4px solid var(--bg);
+    display:block;
+  }
+  .hero-avatar-placeholder{
+    position:relative;z-index:1;
+    width:160px;height:160px;border-radius:50%;
+    background:linear-gradient(135deg,var(--card),var(--purple));
+    border:4px solid var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:900;
+    color:var(--amber);
+  }
+  .hero-name{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(2rem,6vw,4rem);
+    font-weight:900;
+    line-height:1.1;
+    background:linear-gradient(90deg,var(--amber-light),var(--amber),var(--amber-dim));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+    animation:fadeInUp 1s ease 0.1s both;
+  }
+  .hero-branch{
+    font-family:'Space Mono',monospace;
+    font-size:0.9rem;color:var(--purple-light);
+    letter-spacing:0.1em;
+    animation:fadeInUp 1s ease 0.2s both;
+  }
+  .hero-cgpa{
+    display:inline-flex;align-items:center;gap:10px;
+    background:rgba(245,166,35,0.08);
+    border:1px solid rgba(245,166,35,0.3);
+    border-radius:8px;padding:10px 22px;
+    font-size:0.95rem;
+    animation:fadeInUp 1s ease 0.3s both;
+  }
+  .cgpa-val{
+    font-family:'Orbitron',sans-serif;
+    font-weight:700;font-size:1.4rem;color:var(--amber);
+  }
+  .hero-cta{
+    display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+    animation:fadeInUp 1s ease 0.4s both;
+  }
+  .btn-primary{
+    padding:12px 32px;
+    background:var(--amber);color:#0a0a0f;
+    font-weight:700;font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;
+    text-decoration:none;border-radius:6px;
+    transition:transform 0.2s,box-shadow 0.2s;
+    box-shadow:0 0 24px rgba(245,166,35,0.3);
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 40px rgba(245,166,35,0.5);}
+  .btn-secondary{
+    padding:12px 32px;
+    border:1px solid var(--border);color:var(--white);
+    font-size:0.9rem;letter-spacing:0.08em;text-transform:uppercase;
+    text-decoration:none;border-radius:6px;
+    transition:border-color 0.2s,color 0.2s;
+  }
+  .btn-secondary:hover{border-color:var(--amber);color:var(--amber);}
+  .scroll-hint{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--muted);font-size:0.75rem;letter-spacing:0.12em;
+    animation:bounce 2s ease-in-out infinite;
+  }
+  .scroll-hint svg{width:20px;height:20px;stroke:var(--muted);}
 
-.profile{
-padding:60px 20px;
-}
+  /* SECTIONS */
+  section{padding:96px 24px;}
+  .container{max-width:1120px;margin:0 auto;}
+  .section-label{
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:12px;
+  }
+  .section-title{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1.6rem,4vw,2.5rem);font-weight:700;
+    color:var(--white);margin-bottom:48px;
+  }
+  .section-title span{color:var(--amber);}
+  .divider{
+    width:64px;height:3px;
+    background:linear-gradient(90deg,var(--amber),transparent);
+    margin-bottom:48px;border-radius:2px;
+  }
 
-.profile img{
-width:180px;
-height:180px;
-border-radius:50%;
-border:4px solid #00ffff;
-object-fit:cover;
-}
+  /* ABOUT */
+  #about{background:var(--surface);}
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+  }
+  .about-text p{
+    color:var(--muted);line-height:1.8;font-size:0.95rem;margin-bottom:20px;
+  }
+  .stat-row{display:flex;gap:40px;margin-top:32px;flex-wrap:wrap;}
+  .stat-item{}
+  .stat-num{
+    font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;
+    color:var(--amber);
+  }
+  .stat-desc{font-size:0.8rem;color:var(--muted);letter-spacing:0.06em;margin-top:4px;}
+  .skills-wrap{display:flex;flex-wrap:wrap;gap:10px;}
+  .skill-tag{
+    padding:7px 16px;
+    background:rgba(123,94,167,0.12);
+    border:1px solid rgba(123,94,167,0.35);
+    border-radius:100px;font-size:0.8rem;
+    color:var(--purple-light);letter-spacing:0.05em;
+    transition:background 0.2s,border-color 0.2s;
+  }
+  .skill-tag:hover{background:rgba(123,94,167,0.25);border-color:var(--purple-light);}
 
-.profile h1{
-margin-top:20px;
-font-size:36px;
-}
+  /* CERTIFICATES */
+  #certificates{background:var(--bg);}
+  .cert-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:28px;
+  }
+  .cert-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:28px 24px;
+    cursor:pointer;
+    position:relative;overflow:hidden;
+    transform-style:preserve-3d;
+    transition:transform 0.1s ease,box-shadow 0.3s;
+    will-change:transform;
+  }
+  .cert-card::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(245,166,35,0.06),transparent 60%);
+    opacity:0;transition:opacity 0.3s;
+    border-radius:16px;
+  }
+  .cert-card:hover::before{opacity:1;}
+  .cert-card:hover{box-shadow:0 24px 64px rgba(0,0,0,0.5),0 0 0 1px rgba(245,166,35,0.2);}
+  .cert-icon{
+    width:48px;height:48px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(245,166,35,0.15),rgba(123,94,167,0.15));
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:20px;font-size:1.4rem;
+  }
+  .cert-issuer{
+    font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:8px;font-family:'Space Mono',monospace;
+  }
+  .cert-name{
+    font-weight:600;font-size:1rem;color:var(--white);
+    line-height:1.4;margin-bottom:12px;
+  }
+  .cert-badge{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.75rem;color:var(--muted);
+  }
+  .cert-badge::before{
+    content:'';width:6px;height:6px;border-radius:50%;
+    background:var(--amber);display:block;
+  }
+  .cert-glow{
+    position:absolute;bottom:-30px;right:-30px;
+    width:100px;height:100px;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,166,35,0.1),transparent 70%);
+    pointer-events:none;
+  }
 
-.profile p{
-color:#aaa;
-}
+  /* CONTACT */
+  #contact{background:var(--surface);}
+  .contact-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;
+  }
+  .contact-intro{color:var(--muted);line-height:1.8;font-size:0.95rem;margin-bottom:32px;}
+  .contact-links{display:flex;flex-direction:column;gap:16px;}
+  .contact-link{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 20px;
+    background:var(--card);border:1px solid var(--border);
+    border-radius:12px;text-decoration:none;
+    transition:border-color 0.2s,transform 0.2s,box-shadow 0.2s;
+    group:true;
+  }
+  .contact-link:hover{
+    border-color:rgba(245,166,35,0.4);
+    transform:translateX(6px);
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+  }
+  .contact-link-icon{
+    width:42px;height:42px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;flex-shrink:0;
+    background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.2);
+  }
+  .contact-link-info{}
+  .contact-link-label{font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px;}
+  .contact-link-val{font-size:0.9rem;color:var(--white);font-weight:500;}
+  .contact-right{}
+  .reach-card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:16px;padding:32px;
+    background:linear-gradient(135deg,var(--card),rgba(123,94,167,0.08));
+  }
+  .reach-title{
+    font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:700;
+    color:var(--white);margin-bottom:12px;
+  }
+  .reach-sub{font-size:0.88rem;color:var(--muted);line-height:1.7;margin-bottom:24px;}
+  .email-display{
+    font-family:'Space Mono',monospace;font-size:0.85rem;
+    color:var(--amber);padding:14px 18px;
+    background:rgba(245,166,35,0.06);
+    border:1px solid rgba(245,166,35,0.2);
+    border-radius:8px;word-break:break-all;
+  }
 
-.cert{
-padding:60px 20px;
-}
+  /* FOOTER */
+  footer{
+    padding:40px 24px;text-align:center;
+    border-top:1px solid var(--border);
+    color:var(--muted);font-size:0.82rem;
+  }
+  footer span{color:var(--amber);}
 
-.cert img{
-width:70%;
-max-width:700px;
-border-radius:10px;
-}
+  /* ANIMATIONS */
+  @keyframes fadeInDown{
+    from{opacity:0;transform:translateY(-20px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(30px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes spin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+  @keyframes bounce{
+    0%,100%{transform:translateX(-50%) translateY(0);}
+    50%{transform:translateX(-50%) translateY(8px);}
+  }
 
-.caption{
-margin-top:20px;
-font-size:20px;
-color:#00ffff;
-}
+  /* SCROLL REVEAL */
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
 
-footer{
-background:#111;
-padding:20px;
-margin-top:40px;
-}
-
+  @media(max-width:768px){
+    nav{padding:14px 20px;}
+    .nav-links{display:none;}
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .cert-grid{grid-template-columns:1fr;}
+  }
 </style>
-
 </head>
-
 <body>
 
+<!-- NAV -->
 <nav>
-Prasanna Gosavi Portfolio
+  <a class="nav-logo" href="#">PG</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<section class="profile">
-
-<img src="op.jpg">
-
-<h1>Prasanna Gosavi</h1>
-
-<p>CSE (AIML) Student</p>
-
+<!-- HERO -->
+<section id="hero">
+  <canvas id="canvas-bg"></canvas>
+  <div class="hero-inner">
+    <div class="welcome-tag">✦ Welcome to the Portfolio of Prasanna ✦</div>
+    <div class="hero-avatar-wrap">
+      <div class="hero-avatar-ring"></div>
+      <img src="op.jpg" alt="Prasanna Gosavi" class="hero-avatar"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+      />
+      <div class="hero-avatar-placeholder" style="display:none;">P</div>
+    </div>
+    <h1 class="hero-name">Gosavi Prasanna<br/>Dattu</h1>
+    <p class="hero-branch">B.Tech · CSE — Artificial Intelligence &amp; Machine Learning</p>
+    <div class="hero-cgpa">
+      <span style="color:var(--muted);font-size:0.82rem;">Current CGPA</span>
+      <span class="cgpa-val">8.55</span>
+      <span style="color:var(--muted);font-size:0.82rem;">/ 10</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#certificates" class="btn-primary">View Certificates</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
 </section>
 
-
-<section class="cert">
-
-<h2>IBM Certification</h2>
-
-<a href="IBMCE CEDEA1IN Certificate _ IBM Career Education Program.pdf" target="_blank">
-
-<img src="https://img.icons8.com/color/480/000000/ibm.png">
-
-</a>
-
-<div class="caption">
-
-Certification of Devops, Agile & Design Thinking
-
-</div>
-
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <div class="section-label">// about me</div>
+        <h2 class="section-title">Building the <span>Intelligent</span> Future</h2>
+        <div class="divider"></div>
+        <p>I'm Prasanna Gosavi, a passionate Computer Science student specializing in Artificial Intelligence and Machine Learning. I thrive at the intersection of data, algorithms, and real-world problem solving.</p>
+        <p>From cloud computing to statistical analysis, I've built a strong foundation across multiple domains — backed by certifications from IBM, AWS, NPTEL, and more.</p>
+        <div class="stat-row">
+          <div class="stat-item">
+            <div class="stat-num">8.55</div>
+            <div class="stat-desc">Current CGPA</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">10+</div>
+            <div class="stat-desc">Certifications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">5+</div>
+            <div class="stat-desc">Platforms</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:20px;">// tech stack</div>
+        <div class="skills-wrap">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Deep Learning</span>
+          <span class="skill-tag">AWS Cloud</span>
+          <span class="skill-tag">IBM SPSS</span>
+          <span class="skill-tag">Data Science</span>
+          <span class="skill-tag">Git &amp; GitHub</span>
+          <span class="skill-tag">AI Fundamentals</span>
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">Neural Networks</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Statistics</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// achievements</div>
+      <h2 class="section-title">Certificates &amp; <span>Credentials</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="cert-grid" id="cert-grid">
 
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🤖</div>
+        <div class="cert-issuer">AI Foundations</div>
+        <div class="cert-name">AI Fundamental Certification</div>
+        <div class="cert-badge">Verified Certificate</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">☁️</div>
+        <div class="cert-issuer">Amazon Web Services</div>
+        <div class="cert-name">AWS Cloud Practitioner</div>
+        <div class="cert-badge">Cloud Computing</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🎓</div>
+        <div class="cert-issuer">ExcelR Solutions</div>
+        <div class="cert-name">ExcelR Professional Certification — Gosavi Prasanna Dattu</div>
+        <div class="cert-badge">Data Science</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🔧</div>
+        <div class="cert-issuer">Version Control</div>
+        <div class="cert-name">GIT Certification</div>
+        <div class="cert-badge">DevOps · Source Control</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">📊</div>
+        <div class="cert-issuer">IBM</div>
+        <div class="cert-name">IBM SPSS Statistics</div>
+        <div class="cert-badge">Data Analysis</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🏢</div>
+        <div class="cert-issuer">IBM Career Education</div>
+        <div class="cert-name">IBMCE CEDEA1IN — IBM Career Education Certificate</div>
+        <div class="cert-badge">IBM Certified</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">💡</div>
+        <div class="cert-issuer">Innovision</div>
+        <div class="cert-name">Innovision — Gosavi Prasanna Dattu</div>
+        <div class="cert-badge">Innovation &amp; Technology</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">📚</div>
+        <div class="cert-issuer">NPTEL · IIT</div>
+        <div class="cert-name">NPTEL Online Certification</div>
+        <div class="cert-badge">IIT Powered</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🏆</div>
+        <div class="cert-issuer">Quiz &amp; Assessment</div>
+        <div class="cert-name">Quiz Certificate — Academic Assessment</div>
+        <div class="cert-badge">Merit · Excellence</div>
+      </div>
+
+      <div class="cert-card reveal" data-tilt>
+        <div class="cert-glow"></div>
+        <div class="cert-icon">🔬</div>
+        <div class="cert-issuer">Data Science</div>
+        <div class="cert-name">Data Science for Beginners</div>
+        <div class="cert-badge">Foundation · Applied DS</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">// let's connect</div>
+      <h2 class="section-title">Get in <span>Touch</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid reveal">
+      <div>
+        <p class="contact-intro">I'm open to internships, collaborations, and exciting AI/ML projects. Don't hesitate to reach out — let's build something intelligent together.</p>
+        <div class="contact-links">
+
+          <a href="tel:9021148228" class="contact-link">
+            <div class="contact-link-icon">📱</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">Mobile</div>
+              <div class="contact-link-val">9021148228</div>
+            </div>
+          </a>
+
+          <a href="mailto:Prasannagosaavi4@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">Prasannagosaavi4@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/gosavi2006/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">🔗</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">linkedin.com/in/gosavi2006</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/PrasannaGosavi" target="_blank" class="contact-link">
+            <div class="contact-link-icon">🐙</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-val">PrasannaGosavi</div>
+            </div>
+          </a>
+
+          <a href="https://leetcode.com/prasannagosavi/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">⚡</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">LeetCode</div>
+              <div class="contact-link-val">prasannagosavi</div>
+            </div>
+          </a>
+
+          <a href="https://www.hackerrank.com/Prasannagosavi4" target="_blank" class="contact-link">
+            <div class="contact-link-icon">🌟</div>
+            <div class="contact-link-info">
+              <div class="contact-link-label">HackerRank</div>
+              <div class="contact-link-val">Prasannagosavi4</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="reach-card">
+          <div class="reach-title">Open to Opportunities</div>
+          <p class="reach-sub">Looking for internships and projects in the domain of Artificial Intelligence, Machine Learning, and Data Science. Currently maintaining a CGPA of 8.55.</p>
+          <div class="email-display">Prasannagosaavi4@gmail.com</div>
+          <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.85rem;">
+              <span style="color:var(--muted);">Branch</span>
+              <span style="color:var(--white);">CSE — AI &amp; ML</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:0.85rem;">
+              <span style="color:var(--muted);">CGPA</span>
+              <span style="color:var(--amber);font-family:'Orbitron',sans-serif;font-weight:700;">8.55</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:0.85rem;">
+              <span style="color:var(--muted);">Status</span>
+              <span style="color:#4ade80;display:flex;align-items:center;gap:6px;">
+                <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;animation:pulse 2s ease-in-out infinite;"></span>
+                Available
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-
-© 2026 Prasanna Gosavi
-
+  <div>Crafted with 🔥 by <span>Gosavi Prasanna Dattu</span> · CSE — AI &amp; ML</div>
+  <div style="margin-top:8px;font-size:0.75rem;">© 2025 All rights reserved.</div>
 </footer>
 
+<style>
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+</style>
+
+<script>
+// ── Neural Network Canvas BG ──────────────────────────────────────────
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, nodes;
+
+function resize(){
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', ()=>{resize();initNodes();});
+
+function initNodes(){
+  nodes = Array.from({length:80},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4,
+    r:Math.random()*2+1
+  }));
+}
+initNodes();
+
+function drawNet(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<nodes.length;i++){
+    const n=nodes[i];
+    n.x+=n.vx; n.y+=n.vy;
+    if(n.x<0||n.x>W) n.vx*=-1;
+    if(n.y<0||n.y>H) n.vy*=-1;
+    for(let j=i+1;j<nodes.length;j++){
+      const m=nodes[j];
+      const dx=n.x-m.x, dy=n.y-m.y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<160){
+        const alpha=1-(dist/160);
+        ctx.beginPath();
+        ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);
+        ctx.strokeStyle=`rgba(245,166,35,${alpha*0.25})`;
+        ctx.lineWidth=0.8;
+        ctx.stroke();
+      }
+    }
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(245,166,35,0.55)';
+    ctx.fill();
+  }
+  requestAnimationFrame(drawNet);
+}
+drawNet();
+
+// ── 3D Tilt Effect ────────────────────────────────────────────────────
+document.querySelectorAll('[data-tilt]').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const rect=card.getBoundingClientRect();
+    const cx=rect.left+rect.width/2;
+    const cy=rect.top+rect.height/2;
+    const dx=(e.clientX-cx)/(rect.width/2);
+    const dy=(e.clientY-cy)/(rect.height/2);
+    card.style.transform=`perspective(600px) rotateY(${dx*12}deg) rotateX(${-dy*12}deg) translateZ(16px)`;
+    card.style.boxShadow=`${-dx*16}px ${dy*16}px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,166,35,0.25)`;
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.transform='perspective(600px) rotateY(0) rotateX(0) translateZ(0)';
+    card.style.boxShadow='';
+    card.style.transition='transform 0.5s ease, box-shadow 0.5s ease';
+    setTimeout(()=>card.style.transition='',500);
+  });
+});
+
+// ── Scroll Reveal ─────────────────────────────────────────────────────
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{
+  el.style.transitionDelay=`${(i%4)*0.08}s`;
+  io.observe(el);
+});
+</script>
 </body>
 </html>
